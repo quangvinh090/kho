@@ -1,0 +1,90 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Demo 2</title>
+	</head>
+	<body>
+		
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Photo</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Price</th>
+				<th>Created</th>
+				
+			</tr>
+			<tr th:each="product : ${products}">
+				<td th:text="${product.id}"></td>
+				<td>
+					<a th:href="@{/product/details/{id} (id=${product.id})}"><img th:src="@{/images/{photo} (photo=${product.photo})}" width="90" height="90"></a>
+					
+				</td>
+				<td>
+					<a th:href="@{/product/details/{id} (id=${product.id})}"  th:text="${product.name}"></a>
+					
+				</td>
+				<td th:text="${product.status ? 'Lam Handsome' : 'Lam Dep Trai'}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${#dates.format(product.created, 'dd/MM/yyyy HH:mm:ss')}"></td>
+			</tr>
+		</table>
+		<h3>Search By Keyword</h3>
+		<form method="get" th:action="@{/demo2/searchByKeyword}">
+			Keyword: <input type="text" name="keyword">
+			<br><br>
+			<input type="submit" value="Search">
+		</form>
+		
+		<h3>Search By Prices</h3>
+		<form method="get" th:action="@{/product/searchByPrices}">
+			Min: <input type="text" name="min">
+			<br><br>
+			Max: <input type="text" name="max">
+			<br><br>
+			<input type="submit" value="Search">
+		</form>
+		<hr>
+		Demo2
+		<form method="get" th:action="@{/demo2/searchByPrices}">
+			Min: <input type="text" name="min">
+			<br><br>
+			Max: <input type="text" name="max">
+			<br><br>
+			<input type="submit" value="Search">
+		</form>
+		
+		<h3>Update</h3>
+		<form method="post" th:action="@{/demo2/update}">
+			Email 1: <input type="text" name="emails">
+			<br><br>
+			Email 2: <input type="text" name="emails">
+			<br><br>
+			Email 3: <input type="text" name="emails">
+			<br><br>
+			<input type="submit" value="Update">
+		</form>
+		
+		<h3>Update 2</h3>
+		<form method="post" th:action="@{/demo2/update2}">
+			Quantity 1: <input type="text" name="quantities">
+			<br><br>
+			Quantity 2: <input type="text" name="quantities">
+			<br><br>
+			Quantity 3: <input type="text" name="quantities">
+			<br><br>
+			<input type="submit" value="Update">
+		</form>
+		<br><br>
+		<hr>
+		<br><br>
+		<h3>Search By Keyword</h3>
+		<form method="get" th:action="@{/product/searchByKeyword}">
+			Keyword: <input type="text" name="keyword">
+			<br><br>
+			<input type="submit" value="Search">
+		</form>
+		<br>
+		
+	</body>
+</html>

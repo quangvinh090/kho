@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Demo 1</title>
+	</head>
+	<body>
+		<a th:href="@{/demo2/upload}"></a>
+		<h3>Result 2</h3>
+		<th:block th:each="filename : ${filenames}">
+			<img th:src="@{'/images/' + ${filename}} " width="90" height="90">
+		</th:block>
+		
+	</body>
+</html>

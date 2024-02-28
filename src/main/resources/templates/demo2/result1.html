@@ -1,0 +1,11 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Demo 1</title>
+	</head>
+	<body>
+		<a href="@{/demo2/upload}"></a>
+		<h3>Result 1</h3>
+		<img th:src="@{'/images/' +  ${filename}}">
+		
+	</body>
+</html>

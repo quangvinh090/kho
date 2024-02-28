@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Product</title>
+	</head>
+	<body>
+		<h3>Product List</h3>
+		
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Photo</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Price</th>
+				<th>Created</th>
+				
+			</tr>
+			<tr th:each="product : ${products}">
+				<td th:text="${product.id}"></td>
+				<td>
+					<a th:href="@{/product/details/{id} (id=${product.id})}"><img th:src="@{/images/{photo} (photo=${product.photo})}" width="90" height="90"></a>
+					
+				</td>
+				<td>
+					<a th:href="@{/product/details/{id} (id=${product.id})}"  th:text="${product.name}"></a>
+					
+				</td>
+				<td th:text="${product.status ? 'Lam Handsome' : 'Lam Dep Trai'}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${#dates.format(product.created, 'dd/MM/yyyy HH:mm:ss')}"></td>
+			</tr>
+			
+			
+		</table>
+	</body>
+</html>

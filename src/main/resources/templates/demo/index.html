@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Demo 1</title>
+		<link th:href="@{/css/style.css}" rel="stylesheet">
+		<script th:src="@{/js/mylib.js}"></script>
+	</head>
+	<body>
+		<a th:href="@{/demo/index2/9}">Menu1</a>
+		<a th:href="@{'/demo/index2/' + ${id}}">Menu2</a>
+		<a th:href="@{'/demo/index3/' + ${id}} + '/' + ${username}">Menu3</a>
+		<a th:href="@{/demo/index3/{masp}/{username}(masp=${id}, username=${username})}">Menu4</a>
+		<a th:href="@{/demo/index4?id={masp}&username={username}(masp=${id}, username=${username})}">Menu5</a>
+		<br><br>
+		Today: <th:block th:text="${#dates.format(today, 'dd/MM/yyyy HH:mm:ss')}"></th:block>
+		<h3 class="format">Index</h3>
+		Id: <th:block th:text="${id}"></th:block>
+		<br><br>
+		<img th:src="@{/images/product1.jpg}" width="70" height="70" onclick="clickMe()">
+		<br><br>
+		Username: <span th:text="${username}"></span>
+		<br><br>
+		Fullname: <span th:text="${fullname}"></span>
+		<br><br>
+		Status: <th:block th:text="${status ? 'Show' : 'Hide'}"></th:block>
+		<p th:text="'Price: ' + ${price}"></p>
+		<p th:text="'Quantity: ' + ${quantity}"></p>
+		Total: <th:block th:text="${price * quantity}"></th:block>
+		<br>
+		<img th:src="@{'/images/' + ${photo}}" th:attr="width=${width}, height=${height}">
+		<br><br>
+		<hr>
+		
+		<br><br>
+		
+		<ul>
+			<li th:each="name : ${names}" th:text="${name}">
+				
+			</li>
+			
+		</ul>
+		<br><br>
+		<ol>
+			<th:block  th:each="name : ${names}">
+				<li th:text="${name}"></li>
+			</th:block>
+		</ol>
+	</body>
+</html>

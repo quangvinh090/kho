@@ -1,0 +1,148 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Demo </title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({ minDate: -20, maxDate: "+1M +10D" });
+    dateFormat: 'dd/MM/yyyy';
+  } );
+  </script>
+	<script th:Src="@{/js/ckeditor/ckeditor.js}"></script>
+	<script>
+		/**
+ * Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+		/* exported initSample */
+
+		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
+			CKEDITOR.tools.enableHtml5Elements(document);
+
+		// The trick to keep the editor in the sample quite small
+		// unless user specified own height.
+		CKEDITOR.config.height = 150;
+		CKEDITOR.config.width = 'auto';
+
+		var initSample = (function () {
+			var wysiwygareaAvailable = isWysiwygareaAvailable(),
+				isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+
+			return function () {
+				var editorElement = CKEDITOR.document.getById('details');
+
+				// :(((
+				if (isBBCodeBuiltIn) {
+					editorElement.setHtml(
+						'Hello world!\n\n' +
+						'I\'m an instance of [url=https://ckeditor.com]CKEditor[/url].'
+					);
+				}
+
+				// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
+				if (wysiwygareaAvailable) {
+					CKEDITOR.replace('details');
+				} else {
+					editorElement.setAttribute('contenteditable', 'true');
+					CKEDITOR.inline('details	');
+
+					// TODO we can consider displaying some info box that
+					// without wysiwygarea the classic editor may not work.
+				}
+			};
+
+			function isWysiwygareaAvailable() {
+				// If in development mode, then the wysiwygarea must be available.
+				// Split REV into two strings so builder does not replace it :D.
+				if (CKEDITOR.revision == ('%RE' + 'V%')) {
+					return true;
+				}
+
+				return !!CKEDITOR.plugins.get('wysiwygarea');
+			}
+		})();
+	</script>
+	
+</head>
+
+<body>
+	<h3>Register</h3>
+	<form method="post" th:action="@{/account/register}">
+		<table>
+			<tr>
+				<td>Usernamne</td>
+				<td><input type="text" th:field="${account.username}"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" th:field="${account.password}"></td>
+			</tr>
+			<tr>
+				<td>Decription</td>
+				<td>
+					<textarea rows="10" cols="50" th:field="${account.description}"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Detail</td>
+				<td>
+					<textarea rows="30" cols="50" th:field="${account.details}" id="details"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>DOB</td>
+				<td><input type="text" th:field="${account.dob}" id="datepicker"></td>
+			</tr>
+			<tr >
+				<td>Status</td>
+				<td><input type="checkbox" th:field="${account.status}"></td>
+			</tr>
+			<tr>
+				<td valign="top">Language</td>
+				<td>
+					<th:block th:each="language : ${languages}">
+							<input type="checkbox" th:value="${language.id}" th:field="${account.languages}">
+						<th:block th:text="${language.name}"></th:block>
+						<br>
+					</th:block>
+				</td>
+			</tr>
+			
+				<tr>
+				<td valign="top">Gender</td>
+				<td>
+					<input type="radio" th:field="${account.gender}" value="m" >Male
+					<br>
+					<input type="radio" th:field="${account.gender}" value="f" >Female
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">Cert</td>
+				<td>
+					<th:block th:each="cert : ${certs}">
+							<input type="radio" th:value="${cert.id}" th:field="${account.cert}">
+						<th:block th:text="${cert.name}"></th:block>
+						<br>
+					</th:block>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="Save"></td>
+			</tr>
+			
+		</table>
+
+	</form>
+
+	<script>
+		initSample();
+	</script>
+</body>
+
+</html>

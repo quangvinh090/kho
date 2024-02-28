@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Demo 1</title>
+	</head>
+	<body>
+		<h3>Index 5</h3>
+		Area <th:block th:text="${area}"></th:block>
+		<br><br>
+		Perimeter <th:block th:text="${perimeter}"></th:block>
+		<br><br>
+		<a th:href="@{/demo}">Back</a>
+	</body>
+</html>
